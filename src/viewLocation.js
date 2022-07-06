@@ -42,8 +42,10 @@ let viewLocation = () => {
             flag = true;
         }
     } else {
-alert("Please enter your id");
-        }
+        alert("Please enter your id");
+       cleanTable();
+
+    }
 };
 
 let drawTable = (location) => {

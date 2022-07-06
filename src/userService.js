@@ -1,7 +1,7 @@
 import { Patient } from "./classes";
 
-
-fetch(`http://localhost:12395/api/User/${patient.id}` , {
+export const PostLocation=(patientId,report)=>{
+fetch(`http://localhost:44317/api/User/${patientId}` , {
     method: "POST",
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -17,3 +17,4 @@ fetch(`http://localhost:12395/api/User/${patient.id}` , {
                     alert(JSON.stringify(error.errors))
             })
     });
+}

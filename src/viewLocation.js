@@ -126,10 +126,30 @@ let addLocation = () => {
     let city = document.getElementById('city').value;
     let location = document.getElementById('location').value;
     let newLocation = new Location(startDate, endDate, city, location);
-    pushLocation(newLocation);
+    postLocation(document.getElementById('idInput').value,newLocation);
+    // pushLocation(newLocation);
     domTable(newLocation);
 
 }
+
+const postLocation=(patientId,report)=>{
+    fetch(`http://localhost:44317/api/User/${patientId}` , {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(report),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("report added successfully");
+            }
+            else
+                response.json().then(error => {
+                        alert(JSON.stringify(error.errors))
+                })
+        });
+    }
 
 let pushLocation = (newLocation) => {
     const id = document.getElementById('idInput').value;

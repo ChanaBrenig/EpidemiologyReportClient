@@ -42,9 +42,8 @@ let viewLocation = () => {
             flag = true;
         }
     } else {
+        cleanTable();
         alert("Please enter your id");
-       cleanTable();
-
     }
 };
 
@@ -181,7 +180,7 @@ let deleteLocation = (location) => {
 
 let patientReports = () => {
     sessionStorage.setItem("userLocation", JSON.stringify(userLocation));
-    window.location.href = "./patientReports.html";
+    window.location.href = "../html/viewReports.html";
 };
 
 document.getElementById("viewLocation").addEventListener("click", viewLocation);

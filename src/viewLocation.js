@@ -173,14 +173,14 @@ const postLocation = (patientId, report) => {
 
 let pushLocation = (newLocation) => {
     const id = document.getElementById('idInput').value;
-    userLocation.find((user) => id === user._id)._locations.push(newLocation);
+    userLocation.find((user) => id === user.id).locations.push(newLocation);
 }
 
 let deleteLocation = (location) => {
     const id = document.getElementById('idInput').value;
 
-    let arr = userLocation.find((user) => id === user._id)._locations.filter((item) => location !== item);
-    userLocation.find((user) => id === user._id)._locations = arr;
+    let arr = userLocation.find((user) => id === user.id).locations.filter((item) => location !== item);
+    userLocation.find((user) => id === user.id).locations = arr;
 
 }
 

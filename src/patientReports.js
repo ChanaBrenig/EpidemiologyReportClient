@@ -12,7 +12,7 @@ let onload = () => {
 
 let filterLocation = (userLocation) => {
     userLocation.forEach(element => {
-        element._locations.forEach(location => {
+        element.locations.forEach(location => {
             locations.push(location);
         });;
     });
@@ -21,7 +21,7 @@ let filterLocation = (userLocation) => {
 
 let sortLocations = (locations) => {
     locations.sort(function (a, b) {
-        return ((new Date(b._startDate).getTime() - new Date(a._startDate).getTime()))
+        return ((new Date(b.startDate).getTime() - new Date(a.startDate).getTime()))
     });
 }
 
@@ -53,13 +53,13 @@ let domTable = (location) => {
     td0.innerHTML='-';
     td0.id="firstColumn";
     const td1 = document.createElement('td');
-    td1.innerHTML = formatDate(new Date(location._startDate), new Date(location._endDate));
+    td1.innerHTML = formatDate(new Date(location.startDate), new Date(location.endDate));
 
     const td3 = document.createElement('td');
-    td3.innerHTML = location._city;
+    td3.innerHTML = location.city;
     const td4 = document.createElement('td');
     td4.id="lastColumn";
-    td4.innerHTML = location._location;
+    td4.innerHTML = location.location;
 
     tr.appendChild(td0);
     tr.appendChild(td1);
@@ -75,7 +75,7 @@ let filterByCity = () => {
     if (city == '') {
         drawLocations(locations);
     } else {
-        let locationByCity = locations.filter((location) => city === location._city);
+        let locationByCity = locations.filter((location) => city === location.city);
         drawLocations(locationByCity);
     }
 }

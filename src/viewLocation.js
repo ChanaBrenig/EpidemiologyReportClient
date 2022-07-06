@@ -30,7 +30,10 @@ let viewLocation = () => {
         cleanTable();
         newLocation();
       });
-//   } else {
+  else
+  {
+    
+  }
     cleanTable();
     if(!flag) { 
     drawFirstRowTable();

@@ -28,13 +28,13 @@ let viewLocation = () => {
         console.log(error);
         alert("there is no patient with this id");
         cleanTable();
-        drawFirstRowTable();
         newLocation();
       });
-  } else {
+//   } else {
     cleanTable();
+    if(!flag) { 
     drawFirstRowTable();
-    newLocation();
+    newLocation();}
   }
 
   // let user = userLocation.filter((user) => id === user._id);
@@ -168,7 +168,7 @@ const postLocation = (patientId, report) => {
     body: JSON.stringify(report),
   }).then((response) => {
     if (response.ok) {
-      alert("report added successfully");
+      console.log("report added successfully");
     } else
       response.json().then((error) => {
         alert(JSON.stringify(error.errors));

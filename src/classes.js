@@ -1,7 +1,7 @@
 class Patient {
     constructor(id, locations=[]) {
-        this._id = id;
-        this._locations = locations;
+        this.id = id;
+        this.locations = locations;
     }
 
 
@@ -11,10 +11,10 @@ class Patient {
 class Location {
 
     constructor(startDate, endDate, city, location) {
-        this._startDate = startDate;
-        this._endDate = endDate;
-        this._city = city;
-        this._location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.city = city;
+        this.location = location;
     }
 
 };

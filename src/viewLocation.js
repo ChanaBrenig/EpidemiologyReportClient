@@ -7,11 +7,11 @@ let flag = false;
 let viewLocation = () => {
     const id = document.getElementById('idInput').value;
 
-    let user = userLocation.filter((user) => id === user._id);
+    let user = userLocation.filter((user) => id === user.id);
 
     if (user.length == 0) {
         userLocation.push(new Patient(id));
-        user = userLocation.filter((user) => id === user._id);
+        user = userLocation.filter((user) => id === user.id);
     }
 
     if (!flag) {
@@ -20,7 +20,7 @@ let viewLocation = () => {
         flag = true;
     }
 
-    drawTable(user[0]._locations);
+    drawTable(user[0].locations);
 }
 
 let drawTable = (location) => {
@@ -64,13 +64,13 @@ let domTable = (location) => {
     let tr = document.createElement('tr');
 
     let td1 = document.createElement('td');
-    td1.innerHTML = location._startDate.replace("T", " ").replace("Z", "");
+    td1.innerHTML = location.startDate.replace("T", " ").replace("Z", "");
     let td2 = document.createElement('td');
-    td2.innerHTML = location._endDate.replace("T", " ").replace("Z", "");
+    td2.innerHTML = location.endDate.replace("T", " ").replace("Z", "");
     let td3 = document.createElement('td');
-    td3.innerHTML = location._city;
+    td3.innerHTML = location.city;
     let td4 = document.createElement('td');
-    td4.innerHTML = location._location;
+    td4.innerHTML = location.location;
     let td5 = document.createElement('td');
     let btn = document.createElement('button');
     btn.id="btnDelete";
@@ -153,14 +153,14 @@ const postLocation=(patientId,report)=>{
 
 let pushLocation = (newLocation) => {
     const id = document.getElementById('idInput').value;
-    userLocation.find((user) => id === user._id)._locations.push(newLocation);
+    userLocation.find((user) => id === user.id).locations.push(newLocation);
 }
 
 let deleteLocation = (location) => {
     const id = document.getElementById('idInput').value;
 
-    let arr = userLocation.find((user) => id === user._id)._locations.filter((item) => location !== item);
-    userLocation.find((user) => id === user._id)._locations = arr;
+    let arr = userLocation.find((user) => id === user.id).locations.filter((item) => location !== item);
+    userLocation.find((user) => id === user.id).locations = arr;
 
 }
 

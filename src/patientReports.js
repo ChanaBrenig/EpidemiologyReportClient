@@ -2,21 +2,29 @@ let locations = [];
 let table = document.getElementById('locationsTable');
 
 let onload = () => {
-    let userLocationFromJson = sessionStorage.getItem("userLocation");
-    let userLocation = JSON.parse(userLocationFromJson);
-    console.log(userLocation);
-    filterLocation(userLocation);
-    sortLocations(locations);
-    drawLocations(locations);
+
+    fetch("https://localhost:44317/api/Locations", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log("get reports list successfully");
+                return response;
+            }
+        }).then(response => response.json())
+        .then(data => {
+            sortLocations(data);
+            drawLocations(data);
+        })
+        .then(error => {
+            console.log(error);
+        });
+
 }
 
-let filterLocation = (userLocation) => {
-    userLocation.forEach(element => {
-        element.locations.forEach(location => {
-            locations.push(location);
-        });;
-    });
-}
 
 
 let sortLocations = (locations) => {
@@ -50,15 +58,15 @@ let domTable = (location) => {
 
     const tr = document.createElement('tr');
     const td0 = document.createElement('td');
-    td0.innerHTML='-';
-    td0.id="firstColumn";
+    td0.innerHTML = '-';
+    td0.id = "firstColumn";
     const td1 = document.createElement('td');
     td1.innerHTML = formatDate(new Date(location.startDate), new Date(location.endDate));
 
     const td3 = document.createElement('td');
     td3.innerHTML = location.city;
     const td4 = document.createElement('td');
-    td4.id="lastColumn";
+    td4.id = "lastColumn";
     td4.innerHTML = location.location;
 
     tr.appendChild(td0);
@@ -73,10 +81,28 @@ let domTable = (location) => {
 let filterByCity = () => {
     const city = document.getElementById('cityInput').value;
     if (city == '') {
-        drawLocations(locations);
+      onload();
     } else {
-        let locationByCity = locations.filter((location) => city === location.city);
-        drawLocations(locationByCity);
+        fetch(`https://localhost:44317/api/Locations/city?city=${city}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("get reports list by city successfully");
+                    return response;
+                }
+            }).then(response => response.json())
+            .then(data => {
+                sortLocations(data);
+                drawLocations(data);
+            })
+            .then(error => {
+                console.log(error);
+            });
+    
     }
 }
 

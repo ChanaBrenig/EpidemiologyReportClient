@@ -7,12 +7,32 @@ let flag = false;
 let viewLocation = () => {
     const id = document.getElementById('idInput').value;
 
-    let user = userLocation.filter((user) => id === user._id);
+    fetch(`https://localhost:44317/api/User/${id}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },       
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log("get patient's reports list successfully");
+               return response;
+            }
+        }).then(response=> response.json())
+        .then(data => { drawTable(data); })
+        .then(error => {
+            console.log(error);
+        });
 
-    if (user.length == 0) {
-        userLocation.push(new Patient(id));
-        user = userLocation.filter((user) => id === user._id);
-    }
+   
+
+
+    // let user = userLocation.filter((user) => id === user._id);
+
+    // if (user.length == 0) {
+    //     userLocation.push(new Patient(id));
+    //     user = userLocation.filter((user) => id === user._id);
+    // }
 
     if (!flag) {
         drawFirstRowTable();
@@ -20,7 +40,7 @@ let viewLocation = () => {
         flag = true;
     }
 
-    drawTable(user[0]._locations);
+    // drawTable(user[0]._locations);
 }
 
 let drawTable = (location) => {
@@ -64,16 +84,16 @@ let domTable = (location) => {
     let tr = document.createElement('tr');
 
     let td1 = document.createElement('td');
-    td1.innerHTML = location._startDate.replace("T", " ").replace("Z", "");
+    td1.innerHTML = location.startDate.replace("T", " ").replace("Z", "");
     let td2 = document.createElement('td');
-    td2.innerHTML = location._endDate.replace("T", " ").replace("Z", "");
+    td2.innerHTML = location.endDate.replace("T", " ").replace("Z", "");
     let td3 = document.createElement('td');
-    td3.innerHTML = location._city;
+    td3.innerHTML = location.city;
     let td4 = document.createElement('td');
-    td4.innerHTML = location._location;
+    td4.innerHTML = location.location;
     let td5 = document.createElement('td');
     let btn = document.createElement('button');
-    btn.id="btnDelete";
+    btn.id = "btnDelete";
     btn.innerHTML = 'X';
     btn.onclick = () => {
         table.removeChild(tr);
@@ -126,14 +146,14 @@ let addLocation = () => {
     let city = document.getElementById('city').value;
     let location = document.getElementById('location').value;
     let newLocation = new Location(startDate, endDate, city, location);
-    postLocation(document.getElementById('idInput').value,newLocation);
+    postLocation(document.getElementById('idInput').value, newLocation);
     // pushLocation(newLocation);
     domTable(newLocation);
 
 }
 
-const postLocation=(patientId,report)=>{
-    fetch(`https://localhost:44317/api/User/${patientId}` , {
+const postLocation = (patientId, report) => {
+    fetch(`https://localhost:44317/api/User/${patientId}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -146,10 +166,10 @@ const postLocation=(patientId,report)=>{
             }
             else
                 response.json().then(error => {
-                        alert(JSON.stringify(error.errors))
+                    alert(JSON.stringify(error.errors))
                 })
         });
-    }
+}
 
 let pushLocation = (newLocation) => {
     const id = document.getElementById('idInput').value;

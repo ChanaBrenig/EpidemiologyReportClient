@@ -133,7 +133,7 @@ let addLocation = () => {
 }
 
 const postLocation=(patientId,report)=>{
-    fetch(`http://localhost:44317/api/User/${patientId}` , {
+    fetch(`https://localhost:44317/api/User/${patientId}` , {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

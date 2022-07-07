@@ -106,9 +106,7 @@ let filterByCity = () => {
     }
 }
 
-function viewLocations() {
-    window.location.href = "./viewLocation.html"
-}
+
 
 document.getElementById('cityInput').addEventListener(
     'change', filterByCity

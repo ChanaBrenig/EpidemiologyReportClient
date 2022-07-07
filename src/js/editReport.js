@@ -1,6 +1,5 @@
 import { Patient, Location } from "./classes.js";
 
-//let userLocation = [];
 let table = document.getElementById("table");
 let flag = false;
 
@@ -187,10 +186,7 @@ let deleteLocation = (location) => {
             });
     });
 
-    // let arr = userLocation
-    //     .find((user) => id === user.id)
-    //     .locations.filter((item) => location !== item);
-    // userLocation.find((user) => id === user.id).locations = arr;
+
 };
 
 let patientReports = () => {

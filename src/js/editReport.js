@@ -1,6 +1,6 @@
 import { Patient, Location } from "./classes.js";
 
-let userLocation = [];
+//let userLocation = [];
 let table = document.getElementById("table");
 let flag = false;
 
@@ -170,16 +170,31 @@ const postLocation = (patientId, report) => {
 
 
 let deleteLocation = (location) => {
-    const id = document.getElementById("idInput").value;
+    const patientId = document.getElementById("idInput").value;
 
-    let arr = userLocation
-        .find((user) => id === user.id)
-        .locations.filter((item) => location !== item);
-    userLocation.find((user) => id === user.id).locations = arr;
+    fetch(`https://localhost:44317/api/User/${patientId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(location),
+    }).then((response) => {
+        if (response.ok) {
+            console.log("report added successfully");
+        } else
+            response.json().then((error) => {
+                alert(JSON.stringify(error.errors));
+            });
+    });
+
+    // let arr = userLocation
+    //     .find((user) => id === user.id)
+    //     .locations.filter((item) => location !== item);
+    // userLocation.find((user) => id === user.id).locations = arr;
 };
 
 let patientReports = () => {
-    sessionStorage.setItem("userLocation", JSON.stringify(userLocation));
+    
     window.location.href = "../html/viewReports.html";
 };
 
